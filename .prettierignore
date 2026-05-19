@@ -1,0 +1,38 @@
+# Build output
+build
+dist
+.react-router
+
+# Dependencies
+node_modules
+
+# Static assets
+public
+
+# Lockfiles
+package-lock.json
+skills-lock.json
+
+# Generated
+app/shared/api/schema/database.types.ts
+app/theme.css
+
+# Supabase local state
+supabase/.branches
+supabase/.temp
+
+# Tooling / agent configs (not ours to format)
+.agents
+.claude
+.cursor
+.vscode
+.idea
+
+# Docs & top-level markdown — keep authored formatting
+*.md
+docs
+
+# Env & misc
+.env
+.env.*
+.DS_Store
