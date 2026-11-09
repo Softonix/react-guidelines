@@ -36,7 +36,7 @@
 
 ## Forms
 
-- **Mantine Form + Zod** via `mantine-form-zod-resolver`.
+- **Mantine Form + Zod** via the built-in `schemaResolver` from `@mantine/form` (Standard Schema). Pass `{ sync: true }` so `form.isValid()`/`validate()` stay synchronous.
 - **Form hooks live in the consuming view's `lib/`** as `use-<name>-form.ts`.
 - **Schema declared inline** at the top of the form hook file. Promote to a shared schema only when reused.
 - **`mode: 'uncontrolled'`** as the Mantine Form default.

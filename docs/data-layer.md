@@ -211,13 +211,12 @@ Forms call entity mutations — never the data client directly.
 
 ```ts
 // app/views/auth/lib/use-sign-in-form.ts
-import { useForm } from '@mantine/form'
-import { zodResolver } from 'mantine-form-zod-resolver'
+import { schemaResolver, useForm } from '@mantine/form'
 import { z } from 'zod'
 import { useSignIn } from '~/entities/me'
 
 const SignInSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
 })
 
@@ -227,7 +226,7 @@ export function useSignInForm() {
   const form = useForm<z.infer<typeof SignInSchema>>({
     mode: 'uncontrolled',
     initialValues: { email: '', password: '' },
-    validate: zodResolver(SignInSchema),
+    validate: schemaResolver(SignInSchema, { sync: true }),
   })
 
   const handleSubmit = form.onSubmit((values) => signIn.mutateAsync(values))
