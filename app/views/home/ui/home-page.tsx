@@ -8,7 +8,7 @@ export default function HomePage() {
     <main className="container mx-auto flex min-h-dvh flex-col items-center justify-center gap-4 p-6 text-center">
       <Title order={1}>Welcome {derivedState}</Title>
       <Text c="dimmed" size="lg">
-        React Router v7 + Mantine + Tailwind scaffold.
+        React Router v8 + Mantine + Tailwind scaffold.
       </Text>
     </main>
   )

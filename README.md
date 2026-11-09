@@ -4,7 +4,7 @@ A scaffolded SPA starter. Pick it up, point it at a Supabase project, start ship
 
 ## Stack
 
-- **React Router v7** (framework mode, `ssr: false` SPA build)
+- **React Router v8** (framework mode, `ssr: false` SPA build)
 - **Mantine v9** + **Tailwind v4** for UI and styling
 - **TanStack Query v5** for server state
 - **Mantine Form** + **Zod** for forms and validation

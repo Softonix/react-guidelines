@@ -25,7 +25,7 @@
 ## Exports
 
 - **Named exports as the default.** Component files, hook files, util files, query files, API service files, barrel files — all named.
-- **Exception: route view files** (the ones registered in `app/routes.ts`) need a default export per React Router v7. These live in `app/views/<view>/ui/` and additionally export `meta` / `ErrorBoundary` as named exports.
+- **Exception: route view files** (the ones registered in `app/routes.ts`) need a default export per React Router v8. These live in `app/views/<view>/ui/` and additionally export `meta` / `ErrorBoundary` as named exports.
 - **Barrel files (`index.ts`)** re-export named symbols only. No `export *`.
 
 ## Imports

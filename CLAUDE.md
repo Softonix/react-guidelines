@@ -1,6 +1,6 @@
 # React SPA Supabase Starter
 
-Frontend codebase. Stack: React Router v7 (framework mode), Mantine v9, TanStack Query v5, Tailwind v4, Mantine Form + Zod. Data source is Supabase.
+Frontend codebase. Stack: React Router v8 (framework mode), Mantine v9, TanStack Query v5, Tailwind v4, Mantine Form + Zod. Data source is Supabase.
 
 Architecture: capped Feature-Sliced Design. TS path alias `~/*` → `./app/*`.
 
