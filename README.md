@@ -25,8 +25,8 @@ Architecture: capped Feature-Sliced Design with `~/*` → `./app/*`.
 
 ## Prerequisites
 
-- **Node.js** ≥ 24
-- **npm** ≥ 10
+- **Node.js** ≥ 24.15; 26.13 LTS recommended (see .nvmrc)
+- **npm** ≥ 11
 - **Docker** (for the local Supabase stack via `supabase start`)
 - A `.env` with `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` (printed by `npm run db:start`)
 

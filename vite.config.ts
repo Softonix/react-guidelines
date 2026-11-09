@@ -1,8 +1,8 @@
 import { reactRouter } from '@react-router/dev/vite'
 import tailwindcss from '@tailwindcss/vite'
 import mantineTheme from 'tailwind-preset-mantine/vite'
-import babel from 'vite-plugin-babel'
 import { defineConfig } from 'vite'
+import babel from 'vite-plugin-babel'
 
 export default defineConfig({
   plugins: [
