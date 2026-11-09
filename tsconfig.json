@@ -1,7 +1,7 @@
 {
   "include": ["**/*", "**/.server/**/*", "**/.client/**/*", ".react-router/types/**/*"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": ["DOM", "ES2022"],
     "types": ["node", "vite/client"],
     "target": "ES2022",
     "module": "ES2022",
@@ -11,7 +11,6 @@
     "paths": {
       "~/*": ["./app/*"]
     },
-    "esModuleInterop": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
     "resolveJsonModule": true,

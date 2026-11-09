@@ -12,6 +12,6 @@ export default {
 
   importOrder: ['<BUILTIN_MODULES>', '<THIRD_PARTY_MODULES>', '', '^~/(.*)$', '', '^[./]'],
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
-  importOrderTypeScriptVersion: '5.9.3',
+  importOrderTypeScriptVersion: '6.0.3',
   importOrderCaseSensitive: false,
 }
