@@ -52,4 +52,4 @@ npm run db:gen-types  # regenerate app/shared/api/schema/database.types.ts
 
 ## Deployment
 
-`npm run build` emits a static SPA in `build/client/`. Serve it with `npm run start` or deploy the `Dockerfile` to any container host.
+`npm run build` emits the static SPA in `build/client/` plus `build/server/`, which `npm run start` (react-router-serve) and the `Dockerfile` use. To deploy only `build/client/` to a static host, configure an SPA fallback that rewrites all paths to `/index.html`.
