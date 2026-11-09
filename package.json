@@ -20,7 +20,7 @@
     "db:stop": "supabase stop",
     "db:status": "supabase status",
     "db:reset": "supabase db reset",
-    "db:gen-types": "supabase gen types typescript --local --schema public > app/shared/api/schema/database.types.ts",
+    "db:gen-types": "supabase gen types typescript --schema public > app/shared/api/schema/database.types.ts",
     "prepare": "husky"
   },
   "dependencies": {
@@ -62,7 +62,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
-    "supabase": "^2.100.0",
+    "supabase": "^3.0.0",
     "tailwind-preset-mantine": "^4.1.0",
     "tailwindcss": "^4.3.5",
     "type-fest": "^5.10.0",
