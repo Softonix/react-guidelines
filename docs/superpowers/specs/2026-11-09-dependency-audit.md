@@ -15,7 +15,7 @@ Date: 2026-11-09. Baseline: `main` @ 6f2d941.
 | zod 4.4.3 (direct) | high | GHSA-mrhx-c7xc-m3w5 memory exhaustion | ≥4.6.6 |
 | browserslist, baseline-browser-mapping, @babel/core (Babel chain) | high/mod/low | DoS, file read | in-range update |
 | postcss, source-map-js, nanoid, esbuild | high/low | path traversal, DoS | in-range update |
-| brace-expansion, minimatch (eslint plugins / typescript-eslint) | high/mod | ReDoS | in-range update |
+| brace-expansion, minimatch (eslint plugins / typescript-eslint) | high/mod | ReDoS | brace-expansion: in-range update; minimatch: still open, see Result |
 | js-yaml, valibot | high/mod | DoS | in-range update |
 
 ## Upgrade targets
@@ -63,13 +63,14 @@ Date: 2026-11-09. Baseline: `main` @ 6f2d941.
 
 ### npm audit
 
-`7 moderate severity vulnerabilities`, all from a single advisory:
+`7 moderate severity vulnerabilities`: 7 packages in one dependency chain, all from a single advisory.
 
-- **minimatch** 7.0.0 - 11.0.0, GHSA-g3hv-75wg-m249 (DoS via globparts amplification)
-- Path: `typescript-eslint` → `@typescript-eslint/{eslint-plugin,parser,type-utils,utils,typescript-estree}` → `minimatch` 10.x (the 7 counted packages are this dependency chain)
-- Unfixed: `npm update`/`dedupe` change nothing; the only offered fix is `npm audit fix --force`, a typescript-eslint downgrade to 8.36.0 (breaking, and incompatible with the TS 6 setup). No `overrides` used.
+- **minimatch** 7.0.0 - 11.0.0, GHSA-g3hv-75wg-m249 ("minimatch has potential denial of service via globparts amplification")
+- Path: `typescript-eslint` → `@typescript-eslint/{eslint-plugin,parser,type-utils,utils,typescript-estree}` → `minimatch` 10.x; only the nested minimatch is vulnerable, the other 6 packages are flagged because they depend on it.
+- Fix exists only in minimatch 11.0.1. `@typescript-eslint/typescript-estree` 8.72.1 (current) and its canary (8.72.2-alpha.11) both depend on `minimatch: ^10.2.2`, and the latest 10.x (10.2.6) is inside the vulnerable range, so no in-range update clears it.
+- `npm update`/`dedupe` change nothing. The only fix npm offers is `npm audit fix --force`, a breaking downgrade to typescript-eslint 8.36.0, whose peer range is `typescript >=4.8.4 <5.9.0` (verified with `npm view typescript-eslint@8.36.0 peerDependencies`), so it cannot work with TS 6. No `overrides` used.
 - Low risk: dev/lint-time only, never in the shipped bundle or Docker runtime image; input is repo-controlled glob patterns.
-- Revisit when typescript-eslint ships a release depending on a patched minimatch.
+- Revisit when typescript-estree moves to minimatch >=11.0.1.
 
 No other advisories.
 
