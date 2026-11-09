@@ -104,6 +104,6 @@ No other advisories.
 
 - The Vite `envFile` deprecation notice (emitted by `@react-router/dev` 7.x) is gone after RR8; confirmed absent in Task 4's `react-router typegen` / `build` output on 8.5.1.
 - The eslint 9 npm deprecation notice is expected while ESLint 10 is blocked.
-- Supabase `project_id = "aurelius-english"` in `supabase/config.toml` collides with a pre-existing local docker volume from another project, so `db:gen-types` currently picks up foreign tables. `database.types.ts` was intentionally not regenerated. Changing `project_id` is out of scope and left to the user.
+- Supabase `project_id` was `"aurelius-english"`, which collided with a pre-existing local docker volume from another project (so `db:gen-types` picked up foreign tables). Renamed to the generic `"react-spa-supabase-starter"`; `database.types.ts` was not regenerated in this branch.
 - `npm start` (`react-router-serve`) serves `/` with 200; an unknown path such as `/some/unknown/path` returns 404 with the SPA HTML shell (`entry.client` present), so client-side routing still renders the not-found route.
 - Verified: `npm run preflight` and `npm run build` pass; Docker image builds on `node:24-alpine` and serves `/` with 200.
