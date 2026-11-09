@@ -58,3 +58,51 @@ Date: 2026-11-09. Baseline: `main` @ 6f2d941.
 - **Mantine Form / Zod docs**: `zodResolver` from `mantine-form-zod-resolver` → `schemaResolver(schema, { sync: true })` from `@mantine/form`; `z.string().email()` → `z.email()`.
 - **Node**: `.nvmrc` → 26.13.0; Dockerfile `node:20-alpine` (already below RR8's minimum) → `node:24-alpine` per the RR v8 template, plus `--ignore-scripts` on the prod `npm ci` (husky `prepare`); README prerequisites.
 - **Pre-existing doc/format bugs fixed on the way**: `docs/routing.md` references non-existent `npm run typegen`; `vite.config.ts` fails `prettier --check`.
+
+## Result
+
+### npm audit
+
+`7 moderate severity vulnerabilities`, all from a single advisory:
+
+- **minimatch** 7.0.0 - 11.0.0, GHSA-g3hv-75wg-m249 (DoS via globparts amplification)
+- Path: `typescript-eslint` → `@typescript-eslint/{eslint-plugin,parser,type-utils,utils,typescript-estree}` → `minimatch` 10.x (the 7 counted packages are this dependency chain)
+- Unfixed: `npm update`/`dedupe` change nothing; the only offered fix is `npm audit fix --force`, a typescript-eslint downgrade to 8.36.0 (breaking, and incompatible with the TS 6 setup). No `overrides` used.
+- Low risk: dev/lint-time only, never in the shipped bundle or Docker runtime image; input is repo-controlled glob patterns.
+- Revisit when typescript-eslint ships a release depending on a patched minimatch.
+
+No other advisories.
+
+### Final core versions (`npm ls --depth=0`)
+
+| Package | Version |
+| --- | --- |
+| Node (local / Docker) | 26.13.0 / 24-alpine |
+| react-router, @react-router/dev, /node, /serve | 8.5.1 |
+| react, react-dom | 19.3.1 |
+| typescript | 6.0.3 |
+| eslint | 9.39.5 |
+| typescript-eslint | 8.72.1 |
+| vite | 8.3.6 |
+| tailwindcss, @tailwindcss/vite | 4.3.5 |
+| @mantine/core | 9.8.0 |
+| @tanstack/react-query | 5.107.1 |
+| @supabase/supabase-js | 2.119.0 |
+| zod | 4.6.7 |
+| supabase (CLI) | 3.0.0 |
+| lint-staged | 17.6.0 |
+| prettier | 3.9.10 |
+
+### Blocked upgrades still pending
+
+`npm outdated` lists only: `typescript` 7.0.2, `eslint` 10.14.0, `@babel/preset-typescript` 8.0.7, `@types/node` 26.6.6 (held at ^24 to match the Docker runtime).
+
+- TypeScript 7, ESLint 10, Babel 8: see "Blocked upgrades" above.
+
+### Notes
+
+- The Vite `envFile` deprecation notice is gone after RR8.
+- The eslint 9 npm deprecation notice is expected while ESLint 10 is blocked.
+- Supabase `project_id = "aurelius-english"` in `supabase/config.toml` collides with a pre-existing local docker volume from another project, so `db:gen-types` currently picks up foreign tables. `database.types.ts` was intentionally not regenerated. Changing `project_id` is out of scope and left to the user.
+- `npm start` (`react-router-serve`) serves `/` with 200; an unknown path such as `/some/unknown/path` returns 404 with the SPA HTML shell (`entry.client` present), so client-side routing still renders the not-found route.
+- Verified: `npm run preflight` and `npm run build` pass; Docker image builds on `node:24-alpine` and serves `/` with 200.
